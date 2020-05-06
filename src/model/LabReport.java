@@ -74,8 +74,10 @@ public class LabReport {
 				return "Error while connecting to the database for reading.";
 			}
 
-			output = "<table border=\"1\"><tr><th>LabID</th><th>type</th><th>Date</th><th>Description</th></tr>";
-
+			 output = "<table border=\"1\"><tr><th>LabID</th><th>type</th><th>Date</th><th>Description"
+				   		+"</th><th>Update</th>"
+				   		+ "<th>Remove</th></tr>"; 
+			 
 			String query = "select * from reports";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -91,8 +93,8 @@ public class LabReport {
 
 				//output += "<tr><td>" + LabID + "</td>";
 				output += "<td>" + type + "</td>";
-				output += "<td>" + date + "</td>";
 				output += "<td>" + Description + "</td>";
+				output += "<td>" + date + "</td>";
 
 				// buttons
 
@@ -138,16 +140,19 @@ public class LabReport {
 			preparedStmt.setInt(4, Integer.parseInt(LabID));
 
 			// execute the statement
-			preparedStmt.execute();
-			con.close();
-
-			output = "Updated Lab Details successfully";
-		} catch (Exception e) {
-			output = "Error while updating the Lab details.";
-			System.err.println(e.getMessage());
-		}
-
-		return output;
+						preparedStmt.execute();
+						con.close();
+						
+						String newLab = ViewLabDetailsbyLabID();
+						output = "{\"status\":\"success\"}"; 
+						 
+					} catch (Exception e) {
+						output = "{\"status\":\"error\", \"data\": "
+								+ "\"Error while updating the LabReport.\"}"; 
+						output = "Error while updating the LabReport Details.";	
+						System.err.println(e.getMessage());
+					}
+					return output;
 	}
 	
 
@@ -171,16 +176,19 @@ public class LabReport {
 			preparedStmt.setInt(1, Integer.parseInt(LabID));
 
 			// execute the statement
-			preparedStmt.execute();
-			con.close();
-
-			output = "Deleted successfully";
-		} catch (Exception e) {
-			output = "Error while deleting the Lab details.";
-			System.err.println(e.getMessage());
-		}
-
-		return output;
+						preparedStmt.execute();
+						con.close();
+						
+						String newDoctor = ViewLabDetailsbyLabID();
+						output = "{\"status\":\"success\"}"; 
+						 
+					} catch (Exception e) {
+						output = "{\"status\":\"error\", \"data\": "
+								+ "\"Error while deleting the LabReport.\"}"; 
+						output = "Error while deleting the Lab Details.";	
+						System.err.println(e.getMessage());
+					}
+					return output;
 	}
 
 }

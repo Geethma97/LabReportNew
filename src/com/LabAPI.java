@@ -1,6 +1,7 @@
 package com;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -73,13 +74,27 @@ public class LabAPI extends HttpServlet {
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Map paras = getParasMap(request);
+		
+		String output = LabReportObj.Updatelab(paras.get("hidLabIDSave").toString(), 
+				paras.get("type").toString(),
+				paras.get("Description").toString(), 
+				paras.get("date").toString());
+				
+
+		response.getWriter().write(output);
 	}
 
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		
+			// TODO Auto-generated method stub
+			Map paras = getParasMap(request);
+			String output = LabReportObj.RemoveLab(paras.get("LabID").toString());
+			response.getWriter().write(output);
+			
+		}
 	}
-
-}

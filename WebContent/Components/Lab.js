@@ -37,7 +37,7 @@ $(document).on("click", "#btnSave", function(event) {
 		}
 	});
 });
-
+//save 
 function onLabSaveComplete(response, status) {
 	if (status == "success") {
 		var resultSet = JSON.parse(response);
@@ -59,19 +59,15 @@ function onLabSaveComplete(response, status) {
 	$("#hidLabIDSave").val("");
 	$("#LabID")[0].reset();
 }
-/*
+
 //UPDATE==========================================
 $(document).on("click", ".btnUpdate", function(event)
 		{
-			$("#hidDoctorIDSave").val($(this).closest("tr").find('td:eq(0)').text());
-			$("#fName").val($(this).closest("tr").find('td:eq(1)').text());
-			$("#lNmae").val($(this).closest("tr").find('td:eq(2)').text());
-			$("#gender").val($(this).closest("tr").find('td:eq(3)').text());
-			$("#age").val($(this).closest("tr").find('td:eq(4)').text());
-			$("#docNIC").val($(this).closest("tr").find('td:eq(5)').text());
-			$("#docEmail").val($(this).closest("tr").find('td:eq(6)').text());
-			$("#passwod").val($(this).closest("tr").find('td:eq(7)').text());
-			$("#phoneNumber").val($(this).closest("tr").find('td:eq(8)').text());
+			$("#hidLabIDSave").val($(this).closest("tr").find('td:eq(0)').text());
+			$("#type").val($(this).closest("tr").find('td:eq(1)').text());
+			$("#Description").val($(this).closest("tr").find('td:eq(2)').text());
+			$("#date").val($(this).closest("tr").find('td:eq(3)').text());
+			
 		});
 
 
@@ -82,19 +78,19 @@ $(document).on("click", ".btnUpdate", function(event)
 			{
 			 	$.ajax(
 			{
-				url : "DoctorAPI",
+				url : "LabAPI",
 				type : "DELETE",
-				data : "D_Id=" + $(this).val(),
+				data : "LabID=" + $(this).val(),
 				dataType : "text",
 				complete : function(response, status)
 				{
-					onDoctorDeleteComplete(response.responseText, status);
+					onLabDeleteComplete(response.responseText, status);
 				}
 			 });
 			});
 
 	
-		function onDoctorDeleteComplete(response, status)
+		function onLabDeleteComplete(response, status)
 		{
 			if (status == "success")
 		{
@@ -103,7 +99,7 @@ $(document).on("click", ".btnUpdate", function(event)
 		{
 				$("#alertSuccess").text("Successfully deleted.");
 				$("#alertSuccess").show();
-				$("#divDoctorGrid").html(resultSet.data);
+				$("#divLabGrid").html(resultSet.data);
 		} 
 		else if (resultSet.status.trim() == "error")
 		{
@@ -121,7 +117,7 @@ $(document).on("click", ".btnUpdate", function(event)
 			$("#alertError").text("Unknown error while deleting..");
 			$("#alertError").show();
 		}
-}*/
+}
 		// CLIENT-MODEL================================================================
 		function validateLabForm() {
 			// Type
