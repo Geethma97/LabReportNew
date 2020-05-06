@@ -27,7 +27,7 @@ public class LabReport {
 
 	// Add Laboratory Details
 
-	public String AddLabDetails(String type, String Description, Date date) {
+	public String AddLabDetails(String type, String Description, String date) {
 		String output = "";
 
 		try {
@@ -44,19 +44,23 @@ public class LabReport {
 			preparedStmt.setInt(1, 0);
 			preparedStmt.setString(2, type);
 			preparedStmt.setString(3, Description);
-			preparedStmt.setDate(4, date);
+			preparedStmt.setString(4, date);
 
+			// execute the statement
 			preparedStmt.execute();
 			con.close();
-
-			output = "Inserted Lab Details successfully";
+			
+			String newLab = ViewLabDetailsbyLabID();
+			output = "{\"status\":\"success\"}"; 
+			 
 		} catch (Exception e) {
-			output = "Error while inserting the Lab details.";
+			output = "{\"status\":\"error\", \"data\": "
+					+ "\"Error while inserting the Lab.\"}"; 
+			output = "Error while inserting the Lab Details.";	
 			System.err.println(e.getMessage());
 		}
-
 		return output;
-	}
+}
 
 	// View Lab Details by Lab ID
 
@@ -80,17 +84,21 @@ public class LabReport {
 				String LabID = Integer.toString(rs.getInt("labID"));
 				String type = rs.getString("type");
 				String Description = rs.getString("Description");
-				Date date = rs.getDate("date");
+				String date = rs.getString("date");
 
 				// add to html table
-				output += "<tr><td>" + LabID + "</td>";
+			    output += "<tr><td><input id='hidDoctorIdUpdate'name='hidDoctorIDUpdate' type='hidden' value='"+LabID+"'>" + LabID + "</td>";   
+
+				//output += "<tr><td>" + LabID + "</td>";
 				output += "<td>" + type + "</td>";
 				output += "<td>" + date + "</td>";
 				output += "<td>" + Description + "</td>";
 
 				// buttons
-				output += "</tr>";
 
+		   		output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td> "
+						+ "<td><button name='btnRemove' type='button' value='"+ LabID + "' class='btnRemove btn btn-danger'  data-ID= '" + LabID + "'>remove</button></td></tr>";
+			
 			}
 
 			con.close();

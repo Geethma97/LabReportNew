@@ -32,7 +32,7 @@
 				<div id="alertSuccess" class="alert alert-success"></div>
 				<div id="alertError" class="alert alert-danger"></div>
 				<br>
-				<div id="divItemsGrid">
+				<div id="divLabGrid">
 					<%
 						LabReport LabReportObj = new LabReport();
 					out.print(LabReportObj.ViewLabDetailsbyLabID());
